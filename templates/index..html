@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with GPT-Neo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("form").on("submit", function(event){
+                event.preventDefault();
+                var user_input = $("input[name=user_input]").val();
+                $.ajax({
+                    url: "/get_response",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ user_input: user_input }),
+                    success: function(data) {
+                        $("#response").text(data.response);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Talk to AI</h2>
+    <form>
+        <input type="text" name="user_input" placeholder="Say something...">
+        <input type="submit" value="Send">
+    </form>
+    <p id="response"></p>
+</body>
+</html>
